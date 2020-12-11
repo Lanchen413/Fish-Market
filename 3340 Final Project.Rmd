@@ -1,0 +1,61 @@
+```{r}
+Fish_1 <- read.csv("~/Desktop/Fish 1.csv", header=TRUE)
+```
+```{r}
+pairs(Fish_1)
+```
+```{r}
+model <- lm(Weight~Species+Length1+Length2+Length3+Height+Width,data = Fish_1)
+summary(model)
+```
+```{r}
+library(car)
+vif(model)
+```
+```{r}
+library(olsrr)
+ols_step_all_possible(model)
+plot(ols_step_all_possible(model))
+```
+```{r}
+ols_step_best_subset(model)
+plot(ols_step_best_subset(model))
+```
+```{r}
+summary(model)
+```
+```{r}
+model2 <- lm(Weight~Species+Length1+Length2+Length3+Width,data=Fish_1)
+summary(model2)
+```
+```{r}
+model3 <- lm(Weight~Species+Length1+Length2+Length3,data=Fish_1)
+summary(model3)
+```
+```{r}
+model4 <- lm(Weight~Species+Length1+Length3,data=Fish_1)
+summary(model4)
+```
+```{r}
+model5 <- lm(Weight~Species+Length3,data=Fish_1)
+summary(model5)
+```
+```{r}
+plot(model5)
+```
+```{r}
+model6 <- lm(Weight~Species+Length3+I(Length3^2),data=Fish_1)
+plot(model6)
+```
+```{r}
+Fish_1 <- Fish_1[-145, ]
+model6 <- lm(Weight~Species+Length3+I(Length3^2),data=Fish_1)
+plot(model6)
+```
+```{r}
+summary(model6)
+```
+```{r}
+library(car)
+vif(model6)
+```
